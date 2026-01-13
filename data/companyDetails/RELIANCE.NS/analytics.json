@@ -1,0 +1,17 @@
+{
+  "symbol": "RELIANCE.NS",
+  "period": "1Y",
+  "dataPoints": 251,
+  "dailyVolatility": 0.0122,
+  "annualizedVolatility": 0.1935,
+  "return1YPercent": 28.01,
+  "trend": {
+    "direction": "Strong upward",
+    "return1Y": 0.2801
+  },
+  "interpretation": {
+    "volatility": "Moderate volatility",
+    "performance": "Strong growth"
+  },
+  "computedAt": "2025-12-26T06:50:14.032Z"
+}

@@ -1,0 +1,17 @@
+{
+  "symbol": "SBIN.NS",
+  "period": "1Y",
+  "dataPoints": 251,
+  "dailyVolatility": 0.0114,
+  "annualizedVolatility": 0.1811,
+  "return1YPercent": 18.84,
+  "trend": {
+    "direction": "Strong upward",
+    "return1Y": 0.1884
+  },
+  "interpretation": {
+    "volatility": "Moderate volatility",
+    "performance": "Positive growth"
+  },
+  "computedAt": "2025-12-26T06:06:35.604Z"
+}
