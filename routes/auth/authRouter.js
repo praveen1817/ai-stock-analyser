@@ -11,6 +11,11 @@ router.post('/signin',async (req,res)=>{
     try{
         console.log(email,username,number);
         const db=await connectToDatabase();
+         if (!db) {
+                return res.status(503).json({
+                message: "Database is waking up, please retry in a few seconds"
+                });
+            }
         const [rows]= await db.query('select * from users where email = ?',[email]);
         if(rows.length>0){
             return res.status(401).json({message:"The Account Already Exists Try to Login in First"});
@@ -18,7 +23,7 @@ router.post('/signin',async (req,res)=>{
         const hashPassword=await bcrypt.hash(password,10);
         await db.query('insert into users (email,username,password,number) values (?,?,?,?)',
             [email,username,hashPassword,number]);
-        return res.status(201).json({messgae:"Account Created Sucessfully"})
+        return res.status(201).json({messgae:"Account Created Successfully"})
     }
     catch(err){
         console.log("Error:"+err);
@@ -34,7 +39,7 @@ router.post('/login',async (req,res)=>{
         const db= await connectToDatabase();
         const [rows]=await db.query('select * from users where email= ?',[email]);
         if(rows.length === 0){
-           return res.status(404).json({messgae:"No user found Try to Login First"});
+           return res.status(404).json({message:"No user found Try to Login First"});
         }
         let isMatch=await bcrypt.compare(password,rows[0].password);
         if(!isMatch){
