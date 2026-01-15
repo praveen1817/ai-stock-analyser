@@ -1,8 +1,13 @@
+import axios from 'axios';
 import fs from "fs";
 import path from "path";
-import YahooFinance from "yahoo-finance2";   
-const yahooFinance = new YahooFinance({
-  suppressNotices: ["yahooSurvey"]
+const yahooClient = axios.create({
+  timeout: 10000,
+  headers: {
+    "User-Agent":
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36",
+    "Accept": "application/json"
+  }
 });
 
 export async function getPriceHistory1Y(symbol) {
@@ -28,29 +33,25 @@ export async function getPriceHistory1Y(symbol) {
   console.log(` Fetching 1Y price history for ${symbolUpper}`);
 
   try {
-    const endDate = new Date();
-    const startDate = new Date();
-    startDate.setFullYear(endDate.getFullYear() - 1);
+        const url = `https://query1.finance.yahoo.com/v8/finance/chart/${symbolUpper}?range=1y&interval=1d`;
+        const res = await yahooClient.get(url);
 
-    const prices = await yahooFinance.historical(symbolUpper, {
-      period1: startDate,
-      period2: endDate,
-      interval: "1d",
-    });
+        const chart = res.data?.chart?.result?.[0];
+        if (!chart) {
+          throw new Error("Invalid Yahoo chart response");
+        }
 
-    if(!prices || prices.length===0){
-        throw new Error("No Price Data Returned");
-    }
+        const timestamps = chart.timestamp;
+        const quote = chart.indicators?.quote?.[0];
 
-    const cleanedPrices = prices.map(p => ({
-      date: p.date.toISOString().split("T")[0],
-      open: p.open?.toFixed(2),
-      high: p.high?.toFixed(2),
-      low: p.low?.toFixed(2),
-      close: p.close?.toFixed(2),
-      volume: p.volume,
-      adjClose: p.adjClose?.toFixed(2),
-    }));
+        const cleanedPrices = timestamps.map((ts, i) => ({
+        date: new Date(ts * 1000).toISOString().split("T")[0],
+        open: quote.open?.[i]?.toFixed(2),
+        high: quote.high?.[i]?.toFixed(2),
+        low: quote.low?.[i]?.toFixed(2),
+        close: quote.close?.[i]?.toFixed(2),
+        volume: quote.volume?.[i]
+      })).filter(p => p.close != null);
 
     const payload = {
       symbol: symbolUpper,
