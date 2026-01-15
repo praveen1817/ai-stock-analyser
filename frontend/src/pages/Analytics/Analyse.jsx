@@ -117,10 +117,21 @@ const Analyse = () => {
       >
         <option value="">Select Stock</option>
         <option value="SBIN.NS">State Bank of India</option>
-        <option value="HDFCBANK.NS">HDFC Bank</option>
-        <option value="RELIANCE.NS">Reliance</option>
-        <option value="TATAMOTORS.NS">Tata Motors</option>
-        <option value="TCS.NS">Tata Consultancy</option>
+              <option value="HDFCBANK.NS">HDFC Bank</option>
+              <option value="RELIANCE.NS">Reliance Industries</option>
+              <option value="TATAMOTORS.NS">Tata Motors</option>
+
+              <option value="TCS.NS">Tata Consultancy Services</option>
+              <option value="TATASTEEL.NS">Tata Steel</option>
+              <option value="TATAPOWER.NS">Tata Power</option>
+              <option value="TITAN.NS">Titan Company</option>
+
+              <option value="KOTAKBANK.NS">Kotak Mahindra Bank</option>
+              <option value="ICICIBANK.NS">ICICI Bank</option>
+              <option value="AXISBANK.NS">Axis Bank</option>
+              <option value="INFY.NS">Infosys</option>
+
+
 
       </select>
 
