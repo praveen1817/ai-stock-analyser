@@ -120,6 +120,8 @@ const Analyse = () => {
         <option value="HDFCBANK.NS">HDFC Bank</option>
         <option value="RELIANCE.NS">Reliance</option>
         <option value="TATAMOTORS.NS">Tata Motors</option>
+        <option value="TCS.NS">Tata Consultancy</option>
+
       </select>
 
       <button
