@@ -45,3 +45,96 @@
 body {
   padding-top: 70px;
 }
+/* ===== PAGE WRAPPER ===== */
+.news-page-wrapper {
+  width: 100%;
+  max-width: 1000px;
+  padding: 1rem;
+}
+
+/* ===== SEARCH CARD ===== */
+.news-search-card {
+  border-radius: 16px;
+  background: linear-gradient(135deg, #ffffff, #f8f9fa);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.news-search-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* ===== INPUT ===== */
+.news-input {
+  border-radius: 12px 0 0 12px;
+  padding: 0.75rem 1rem;
+}
+
+.news-search-btn {
+  border-radius: 0 12px 12px 0;
+  padding: 0 1.5rem;
+  transition: all 0.25s ease;
+}
+
+.news-search-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* ===== RESULTS ANIMATION ===== */
+.news-results {
+  animation: fadeUp 0.6s ease forwards;
+}
+
+/* ===== ENTRY ANIMATIONS ===== */
+.fade-in {
+  animation: fadeIn 0.8s ease forwards;
+}
+
+.slide-up {
+  animation: slideUp 0.6s ease forwards;
+}
+
+/* ===== KEYFRAMES ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== MOBILE OPTIMIZATION ===== */
+@media (max-width: 576px) {
+  .news-search-btn {
+    padding: 0 1rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+}

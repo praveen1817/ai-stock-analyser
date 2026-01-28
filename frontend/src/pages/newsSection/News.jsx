@@ -44,74 +44,98 @@ export default function Navbar({ username = "User" }) {
   return (
     <>
     <div className="conatiner d-flex justify-content-center">
-    <nav className="navbar navbar-expand-lg navbar-dark fixed-top custom-navbar">
-      <div className="container">
-        <Link to="/home" className="navbar-brand d-flex align-items-center">
-          <img
-            src="/images/logo.jpeg"
-            alt="AI Stock Analyzer Logo"
-            width="40"
-            height="40"
-            className="me-2 rounded"
-          />
-          <span className="fw-bold fs-4">AI Stock Analyzer</span>
-        </Link>
-
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-
-        {/* Navigation Links + Profile */}
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav ms-auto align-items-center">
-            <li className="nav-item">
-              <Link to="/home" className="nav-link">Home</Link>
-            </li>
-
-            <li className="nav-item">
-              <Link to="/news" className="nav-link">Get Today's News</Link>
-            </li>
-
-            <li className="nav-item">
-              <Link to="/analyze" className="nav-link">Analyse Stock</Link>
-            </li>
-
-           
-          </ul>
-        </div>
-      </div>
-    </nav>
+    {/* Navbar */}
+              <nav className="navbar navbar-expand-lg navbar-dark fixed-top custom-navbar shadow-sm">
+              <div className="container">
+                <Link to="/home" className="navbar-brand d-flex align-items-center gap-2">
+                  <img
+                    src="/images/logo.jpeg"
+                    alt="AI Stock Analyzer Logo"
+                    width="42"
+                    height="42"
+                    className="rounded"
+                  />
+                  <span className="fw-bold fs-5">AI Stock Analyzer</span>
+                </Link>
     
-      <div className="mt-3 d-flex flex-column align-items-center" style={{maxWidth:'1000px'}}>
-        <h6 style={{fontSize:'20px',fontFamily:'sans-serif'}} className="text-dark mb-3 text-center">Search and Get Amazed with Results .... Get the Most Popular News</h6>
-       <div className="input-group mt-3" style={{maxWidth:'560px',width:'100%'}}>
-        <input 
+                <button
+                  className="navbar-toggler border-0"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#navbarNav"
+                >
+                  <span className="navbar-toggler-icon"></span>
+                </button>
+    
+                <div className="collapse navbar-collapse mt-3 mt-lg-0" id="navbarNav">
+                  <ul className="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+                    <li className="nav-item">
+                      <Link className="nav-link nav-hover" to="/home">Home</Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link nav-hover" to="/news">Get Today’s News</Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link nav-hover active" to="/analyze">Analyse Stock</Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+    
+      {/* Page Content */}
+<div
+  className="container-fluid d-flex justify-content-center"
+  style={{ marginTop: "100px" }}
+>
+  <div className="news-page-wrapper">
+
+    {/* Heading */}
+    <div className="text-center mb-4 fade-in">
+      <h2 className="fw-bold text-dark">
+        Market News Intelligence
+      </h2>
+      <p className="text-muted">
+        Search stocks and get the latest market-moving news instantly
+      </p>
+    </div>
+
+    {/* Search Card */}
+    <div className="card news-search-card shadow-sm slide-up">
+      <div className="card-body">
+        <div className="input-group">
+          <input
             type="text"
-            placeholder="Enter the  Stock to get News"
-            className="form-control "
+            placeholder="Enter stock name (e.g. Infosys, TCS, Reliance)"
+            className="form-control news-input"
             onChange={handleChange}
           />
-          {error && <small className="text-danger">{error}</small> }
-         <button
-          className="btn btn-dark"
-          onClick={handleSubmit}
-           >
-          🔍
-        </button>
-       </div>
-       
+          <button
+            className="btn btn-dark news-search-btn"
+            onClick={handleSubmit}
+          >
+            🔍 Search
+          </button>
+        </div>
+
+        {error && (
+          <div className="mt-2 text-center">
+            <small className="text-danger">{error}</small>
+          </div>
+        )}
       </div>
+    </div>
+
+    {/* News Results */}
+    <div className="news-results mt-5">
+      <NewsList news={news} />
+    </div>
+
+  </div>
+</div>
+
       
     </div>
-      <NewsList news={news}/>
     </>
   );
 }

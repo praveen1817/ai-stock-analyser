@@ -47,68 +47,43 @@ const Home = () => {
       {/* Main Content */}
       <div className="main-content">
         {/* Navbar */}
-        <nav className="navbar navbar-expand-lg navbar-dark fixed-top">
-          <div className="container">
-            {/* Logo + Title */}
-            <Link to="/" className="navbar-brand d-flex align-items-center">
-              <img
-                src="/images/logo.jpeg"
-                alt="AI Stock Analyzer Logo"
-                width="40"
-                height="40"
-                className="me-2 rounded"
-              />
-              <span className="fw-bold fs-4">AI Stock Analyzer</span>
-            </Link>
-
-            {/* Mobile Toggle */}
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarNav"
-              aria-controls="navbarNav"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span className="navbar-toggler-icon"></span>
-            </button>
-
-            {/* Navigation Links + Profile Icon */}
-            <div className="collapse navbar-collapse" id="navbarNav">
-              <ul className="navbar-nav ms-auto align-items-center">
-                  <li className="nav-item">
-                    <Link to="/home" className="nav-link active">Home</Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link to="/news" className="nav-link">Get Today's News</Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link to="/analyze" className="nav-link">Analyse Stock</Link>
-                  </li>
-
-                  {/* Profile with Name (No Icon) */}
-                  <li className="nav-item dropdown">
-                    <a
-                      className="nav-link dropdown-toggle text-white fw-semibold"
-                      href="#"
-                      role="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      {username}  {/* ← Replace with actual user name later */}
-                    </a>
-                    <ul className="dropdown-menu dropdown-menu-end">
-                      <li><Link to="/profile" className="dropdown-item">My Profile</Link></li>
-                      <li><Link to="/settings" className="dropdown-item">Settings</Link></li>
-                      <li><hr className="dropdown-divider" /></li>
-                      <li><a className="dropdown-item text-danger" href="#">Logout</a></li>
-                    </ul>
-                  </li>
-                </ul>
-            </div>
-          </div>
-        </nav>
+        <nav className="navbar navbar-expand-lg navbar-dark fixed-top custom-navbar shadow-sm">
+                      <div className="container">
+                        <Link to="/home" className="navbar-brand d-flex align-items-center gap-2">
+                          <img
+                            src="/images/logo.jpeg"
+                            alt="AI Stock Analyzer Logo"
+                            width="42"
+                            height="42"
+                            className="rounded"
+                          />
+                          <span className="fw-bold fs-5">AI Stock Analyzer</span>
+                        </Link>
+            
+                        <button
+                          className="navbar-toggler border-0"
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#navbarNav"
+                        >
+                          <span className="navbar-toggler-icon"></span>
+                        </button>
+            
+                        <div className="collapse navbar-collapse mt-3 mt-lg-0" id="navbarNav">
+                          <ul className="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+                            <li className="nav-item">
+                              <Link className="nav-link nav-hover" to="/home">Home</Link>
+                            </li>
+                            <li className="nav-item">
+                              <Link className="nav-link nav-hover" to="/news">Get Today’s News</Link>
+                            </li>
+                            <li className="nav-item">
+                              <Link className="nav-link nav-hover active" to="/analyze">Analyse Stock</Link>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </nav>
 
         {/* Hero Section */}
         <section className="hero-section text-center text-white d-flex align-items-center">
