@@ -1,0 +1,91 @@
+/* ===== NAVBAR ===== */
+.custom-navbar {
+  background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
+}
+
+.nav-hover {
+  position: relative;
+  transition: color 0.3s ease;
+}
+.form-select:focus,
+.btn:focus {
+  box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.25);
+}
+
+
+.nav-hover::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  left: 0;
+  bottom: 0;
+  background-color: #0d6efd;
+  transition: width 0.3s ease;
+}
+
+.nav-hover:hover::after {
+  width: 100%;
+}
+
+.nav-hover:hover {
+  color: #ffffff !important;
+}
+
+/* ===== CARDS ===== */
+.card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  transition: all 0.25s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+/* ===== INPUTS ===== */
+.form-control,
+.form-select {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+  box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.25);
+}
+
+/* ===== BADGES / PILLS ===== */
+.badge {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  cursor: default;
+}
+
+.badge:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* ===== LIST ITEMS ===== */
+.list-group-item {
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.list-group-item:hover {
+  background-color: #f8f9fa;
+  transform: translateX(4px);
+}
+
+/* ===== MOBILE SPACING ===== */
+@media (max-width: 768px) {
+  .card {
+    margin-bottom: 1rem;
+  }
+}
