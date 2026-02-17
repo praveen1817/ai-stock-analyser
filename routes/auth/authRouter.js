@@ -1,92 +1,126 @@
 import express from 'express'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { connectToDatabase } from '../../lib/sqlDB.js';
+import { connectToDatabase } from '../../lib/pgDB.js';
 
-const router=express.Router();
+const router = express.Router();
 
-router.post('/signin',async (req,res)=>{
-    console.log("Request reached");
-    const {email,username,password,number}=req.body;
-    try{
-        console.log(email,username,number);
-        const db=await connectToDatabase();
-         if (!db) {
-                return res.status(503).json({
-                message: "Database is waking up, please retry in a few seconds"
-                });
-            }
-        const [rows]= await db.query('select * from users where email = ?',[email]);
-        if(rows.length>0){
-            return res.status(401).json({message:"The Account Already Exists Try to Login in First"});
+router.post('/signin', async (req, res) => {
+    const { email, username, password, number } = req.body;
+
+    try {
+        const db = await connectToDatabase();
+
+        const result = await db.query(
+            'select * from users where email = $1',
+            [email]
+        );
+
+        if (result.rows.length > 0) {
+            return res.status(401).json({
+                message: "Account already exists — login instead"
+            });
         }
-        const hashPassword=await bcrypt.hash(password,10);
-        await db.query('insert into users (email,username,password,number) values (?,?,?,?)',
-            [email,username,hashPassword,number]);
-        return res.status(201).json({messgae:"Account Created Successfully"})
-    }
-    catch(err){
-        console.log("Error:"+err);
-        return res.status(500).json({message:"Internal Server Error"})
-    }
-})
 
-router.post('/login',async (req,res)=>{
-    console.log("Request Hit Login");
-    const {email,password}=req.body;
-    console.log(email,password);
-    try{
-        const db= await connectToDatabase();
-        const [rows]=await db.query('select * from users where email= ?',[email]);
-        if(rows.length === 0){
-           return res.status(404).json({message:"No user found Try to Login First"});
-        }
-        let isMatch=await bcrypt.compare(password,rows[0].password);
-        if(!isMatch){
-            return res.status(401).json({message:"Wrong Password !"})
-        }
-        const token =jwt.sign({id:rows[0].id},process.env.JWT_KEY,{expiresIn:'1h'});
-       return  res.status(200).json({token:token});
+        const hashPassword = await bcrypt.hash(password, 10);
 
-    }catch(err){
-        console.log("Erro:",err);
-        return res.status(500).json({message:"Internal server Error"})
-    }
-})
-const verifyToken= async (req,res,next)=>{
-    try{
-        const authToken= req.headers.authorization;
-        if(!authToken){
-            return res.status(409).json({message:"Invalid Token Try to Login First"})
-        }
-        const token=authToken.split(' ')[1];
-        const decoded=jwt.verify(token,process.env.JWT_KEY)
-        req.userId=decoded.id;
-        next()
+        await db.query(
+            `insert into users (email, username, password, number)
+             values ($1,$2,$3,$4)`,
+            [email, username, hashPassword, number]
+        );
 
-    }catch(err){
+        return res.status(201).json({
+            message: "Account Created Successfully"
+        });
+
+    } catch (err) {
         console.log(err);
-        return res.status(401).json({message:"Invalid user request"})
+        return res.status(500).json({ message: "Internal Server Error" });
     }
-}
+});
 
-router.get('/home',verifyToken, async(req,res)=>{
-    console.log("reached the Home Route");
-    try{
-        let userId=req.userId;
-        const db= await connectToDatabase();
-        const [rows]= await db.query("select username,email from users where id=?",[userId]);
-        if(rows.length==0){
-            return res.status(401).json({message:"No user found Try to login First"});
+router.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        const db = await connectToDatabase();
+
+        const result = await db.query(
+            'select * from users where email = $1',
+            [email]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({
+                message: "No user found — signup first"
+            });
         }
-        return res.status(200).json({
-            username:rows[0].username,
-            email:rows[0].email
-        })
-    }catch(err){
-        console.log(err);
-        return res.status(500).json({message:"Internal Server Error"})
 
+        const user = result.rows[0];
+
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        if (!isMatch) {
+            return res.status(401).json({ message: "Wrong Password" });
+        }
+
+        const token = jwt.sign(
+            { id: user.id },
+            process.env.JWT_KEY,
+            { expiresIn: '1h' }
+        );
+
+        return res.status(200).json({ token });
+
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ message: "Internal server error" });
     }
-})
+});
+
+const verifyToken = (req, res, next) => {
+    try {
+        const authToken = req.headers.authorization;
+        if (!authToken) {
+            return res.status(401).json({ message: "Token missing" });
+        }
+
+        const token = authToken.split(' ')[1];
+        const decoded = jwt.verify(token, process.env.JWT_KEY);
+        req.userId = decoded.id;
+        next();
+
+    } catch (err) {
+        return res.status(401).json({ message: "Invalid token" });
+    }
+};
+
+router.get('/home', verifyToken, async (req, res) => {
+    try {
+        const db = await connectToDatabase();
+
+        const result = await db.query(
+            "select username,email from users where id = $1",
+            [req.userId]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        return res.status(200).json(result.rows[0]);
+
+    } catch (err) {
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
+});
+
+router.get("/dbtest", async (req,res)=>{
+  const db = await connectToDatabase();
+  const r = await db.query("select now()");
+  res.json(r.rows);
+});
+
+
 export default router;
