@@ -12,7 +12,7 @@ app.use(express.json());
 app.use('/analyze',analyseStock);
 app.use('/auth',authRouter)
 app.get('/test',(req,res)=>{
-  res.json({message:"Reached the backend"})
+  res.json({message:"Reached the "})
 })
 
 
