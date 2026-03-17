@@ -1,0 +1,17 @@
+{
+  "symbol": "TCS.NS",
+  "period": "1Y",
+  "dataPoints": 251,
+  "dailyVolatility": 0.012,
+  "annualizedVolatility": 0.1905,
+  "return1YPercent": -24.88,
+  "trend": {
+    "direction": "Strong downward",
+    "return1Y": -0.2488
+  },
+  "interpretation": {
+    "volatility": "Moderate volatility",
+    "performance": "Significant decline"
+  },
+  "computedAt": "2026-01-15T12:24:31.161Z"
+}

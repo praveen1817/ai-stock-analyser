@@ -1,0 +1,17 @@
+{
+  "symbol": "HDFCBANK.NS",
+  "period": "1Y",
+  "dataPoints": 251,
+  "dailyVolatility": 0.0098,
+  "annualizedVolatility": 0.1555,
+  "return1YPercent": 11.13,
+  "trend": {
+    "direction": "Strong upward",
+    "return1Y": 0.1113
+  },
+  "interpretation": {
+    "volatility": "Moderate volatility",
+    "performance": "Positive growth"
+  },
+  "computedAt": "2025-12-26T05:54:55.468Z"
+}

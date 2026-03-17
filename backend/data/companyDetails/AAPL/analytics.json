@@ -1,0 +1,17 @@
+{
+  "symbol": "AAPL",
+  "period": "1Y",
+  "dataPoints": 250,
+  "dailyVolatility": 0.0205,
+  "annualizedVolatility": 0.3255,
+  "return1YPercent": 5.71,
+  "trend": {
+    "direction": "Strong upward",
+    "return1Y": 0.0571
+  },
+  "interpretation": {
+    "volatility": "High volatility (risky)",
+    "performance": "Positive growth"
+  },
+  "computedAt": "2025-12-26T07:01:24.266Z"
+}
