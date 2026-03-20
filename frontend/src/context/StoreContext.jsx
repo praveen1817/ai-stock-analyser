@@ -8,7 +8,7 @@ const StoreContext = createContext(null);
 export const StoreProvider = ({ children }) => {
   // Base URL for all backend API calls.
   // Change this single value to switch between environments.
-  const backendUrl = "http://localhost:5000";
+  const backendUrl = "https://ai-stock-analyser-2xoy.onrender.com";
 
   // JWT token — initialised from localStorage so it survives page reloads.
   const [token, setTokenState] = useState(
